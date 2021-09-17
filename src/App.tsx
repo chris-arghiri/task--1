@@ -10,10 +10,11 @@ import {
   usersAddMany,
   usersAddOne,
   User,
-  usersRemoveOne
+  usersRemoveOne,
+  filterByJob
 } from './reduxUtils/usersSlice';
 
-const inputs = [
+const inputsPlaceholders = [
   { placeholder: 'Name' },
   { placeholder: 'Email' },
   { placeholder: 'City' },
@@ -33,6 +34,7 @@ const App: FunctionComponent = () => {
     PhoneNumber: ''
   };
   const [form] = Form.useForm();
+
   const [id, setId] = useState<number>(-1);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -41,10 +43,16 @@ const App: FunctionComponent = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [user, setUser] = useState<User>(defaultUser);
 
+  const [filteredValue, setFilteredValue] = useState<string>('');
+
   const setUserValuesViaPlaceholder = (
     placeholder: string,
     currentValue: string
   ) => {
+    // switch(placeholder) {
+    //   case 'Name':
+
+    // }
     if (placeholder === 'Name') {
       setName(currentValue);
       return name;
@@ -83,7 +91,9 @@ const App: FunctionComponent = () => {
       }
     };
     asyncThunk();
+
     allUsers !== null ? setId(allUsers.length + 1) : setId(-1);
+
     setUser({
       id: id,
       Name: name,
@@ -92,14 +102,37 @@ const App: FunctionComponent = () => {
       Job: job,
       PhoneNumber: phoneNumber
     });
-  }, [dispatch, allUsers, id, name, email, city, job, phoneNumber]);
+  }, [
+    dispatch,
+    allUsers,
+    id,
+    name,
+    email,
+    city,
+    job,
+    phoneNumber,
+    filteredValue
+  ]);
 
   return (
     <div className='App'>
-      {allUsers.map((user, index) => {
+      <Input
+        placeholder='Filter by job'
+        onChange={(value) => {
+          const currentValue = value.currentTarget.value.toString();
+          setFilteredValue(currentValue);
+        }}
+      />
+      <Button
+        onClick={() => {
+          dispatch(filterByJob(filteredValue));
+        }}>
+        Filter
+      </Button>
+      {allUsers.map((user) => {
         if (user !== null)
           return (
-            <div key={`user-${index}`} className='User'>
+            <div key={`user-${user.id}`} className='User'>
               <p>{user.Name}</p>
               <p>{user.Email}</p>
               <p>{user.City}</p>
@@ -115,11 +148,12 @@ const App: FunctionComponent = () => {
           );
         else return null;
       })}
+
       <Form
         form={form}
         style={{ display: 'flex', flexDirection: 'column', padding: '2em' }}
         onFinish={handleOnSubmit}>
-        {inputs.map(({ placeholder }, index) => {
+        {inputsPlaceholders.map(({ placeholder }, index) => {
           return (
             <Form.Item
               key={`input-${index}`}
