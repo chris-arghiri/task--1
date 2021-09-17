@@ -1,0 +1,27 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 2em;
+
+  padding: 5em;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+
+  background-color: purple;
+}
+
+.User {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  gap: 2em;
+
+  width: 100%;
+
+  background-color: var(--color-white);
+}
