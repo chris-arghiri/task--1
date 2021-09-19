@@ -64,7 +64,6 @@ export const filterByJob = createAsyncThunk(
         mode: 'cors'
       });
       let data = await response.json().then((data) => {
-        console.log(data, 'data');
         if (response.status === 200) return data;
         else return rejectWithValue(data);
       });
@@ -102,12 +101,9 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
-    setAllUsers: usersAdapter.setAll,
-    usersRemoveAll: usersAdapter.removeAll,
     usersAddOne: usersAdapter.addOne,
     usersAddMany: usersAdapter.addMany,
-    usersRemoveOne: usersAdapter.removeOne,
-    filterUsers: usersAdapter.addMany
+    usersRemoveOne: usersAdapter.removeOne
   },
   extraReducers: {
     [fetchUsers.pending.toString()](state) {
@@ -154,13 +150,7 @@ const usersSlice = createSlice({
   }
 });
 
-export const {
-  setAllUsers,
-  usersAddMany,
-  usersAddOne,
-  usersRemoveOne,
-  filterUsers
-} = usersSlice.actions;
+export const { usersAddMany, usersAddOne, usersRemoveOne } = usersSlice.actions;
 
 export const usersSelectors = usersAdapter.getSelectors(
   (state: any) => state.users

@@ -1,0 +1,11 @@
+.UsersLayout {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  gap: 2em;
+
+  width: 100%;
+
+  background-color: var(--color-white);
+}
