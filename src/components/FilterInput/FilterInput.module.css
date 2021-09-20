@@ -1,0 +1,14 @@
+.FilterInput {
+  display: flex;
+  justify-content: space-evenly;
+
+  width: 100%;
+
+  margin-bottom: 2em;
+}
+
+@media (min-width: 1200px) {
+  .FilterInput {
+    width: 50%;
+  }
+}

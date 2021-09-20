@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
-
+import styles from './Form.module.css';
 import {
   addUser,
   usersAddOne,
@@ -23,7 +23,8 @@ const defaultUser = {
   Email: '',
   City: '',
   Job: '',
-  PhoneNumber: ''
+  PhoneNumber: '',
+  DateCreated: ''
 };
 
 const UserForm: FunctionComponent = () => {
@@ -73,6 +74,7 @@ const UserForm: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    const currentDate = new Date();
     users !== null ? setId(users.length + 20) : setId(-1);
 
     setUser({
@@ -81,25 +83,17 @@ const UserForm: FunctionComponent = () => {
       Email: email,
       City: city,
       Job: job,
-      PhoneNumber: phoneNumber
+      PhoneNumber: phoneNumber,
+      DateCreated: currentDate.getDate().toString()
     });
   }, [id, name, email, city, job, phoneNumber, users]);
 
   return (
-    <Form
-      form={form}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: '2em'
-      }}
-      onFinish={handleOnSubmit}>
+    <Form form={form} className={styles.Form} onFinish={handleOnSubmit}>
       {inputsPlaceholders.map(({ placeholder }, index) => {
         return (
           <Form.Item
             key={`input-${index}`}
-            label={placeholder}
             name={placeholder}
             rules={[
               {
@@ -108,6 +102,7 @@ const UserForm: FunctionComponent = () => {
               }
             ]}>
             <Input
+              placeholder={placeholder}
               onChange={(value) => {
                 const currentValue = value.currentTarget.value.toString();
                 setUserValuesViaPlaceholder(placeholder, currentValue);
@@ -118,7 +113,7 @@ const UserForm: FunctionComponent = () => {
       })}
       <Form.Item>
         <Button type='primary' htmlType='submit'>
-          Add new user
+          Add user
         </Button>
       </Form.Item>
     </Form>
