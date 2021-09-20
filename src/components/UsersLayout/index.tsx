@@ -29,8 +29,17 @@ const UsersLayout: FunctionComponent = () => {
   }, []);
 
   return (
-    <>
-      <Button onClick={asyncThunk}>Get Users</Button>
+    <div className={styles.Users}>
+      <Button type='primary' onClick={asyncThunk}>
+        Get Users
+      </Button>
+      <div className={styles.UsersHead}>
+        <h3>Name</h3>
+        <h3>Email</h3>
+        <h3>City</h3>
+        <h3>Job</h3>
+        <h3>PhoneNumber</h3>
+      </div>
       {users.map((user) => {
         if (user !== null)
           return (
@@ -40,17 +49,19 @@ const UsersLayout: FunctionComponent = () => {
               <p>{user.City}</p>
               <p>{user.Job}</p>
               <p>{user.PhoneNumber}</p>
-              <button
+              <Button
+                type='primary'
+                danger
                 onClick={() => {
                   if (user.id !== null) return handleOnDelete(user.id);
                 }}>
                 Delete
-              </button>
+              </Button>
             </div>
           );
         else return null;
       })}
-    </>
+    </div>
   );
 };
 

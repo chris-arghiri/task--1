@@ -1,4 +1,5 @@
-.UsersLayout {
+.UsersLayout,
+.UsersHead {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -7,5 +8,82 @@
 
   width: 100%;
 
-  background-color: var(--color-white);
+  color: var(--color-white);
+}
+
+.UsersLayout p {
+  flex: 1;
+}
+
+.UsersLayout p:first-child {
+  margin-left: 3em;
+}
+
+.UsersHead h3 {
+  margin-right: 10em;
+  padding-right: 1.5em;
+
+  color: var(--color-white);
+}
+
+.UsersLayout button {
+  margin-left: auto;
+  margin-right: 0.5em;
+}
+
+.Users {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* margin-top: 5em; */
+
+  gap: 2em;
+
+  width: 100%;
+
+  font-size: 1rem;
+}
+
+.Users button:first-child {
+  margin-bottom: 3em;
+}
+
+.Users button:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 1450px) {
+  .UsersHead p {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .Users {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .UsersLayout {
+    display: block;
+  }
+
+  .UsersLayout p {
+    padding-left: 0.75em;
+  }
+
+  .UsersLayout p:first-child {
+    margin-left: 0;
+  }
+
+  .UsersLayout button {
+    margin: 0 0.5em 0.5em 0.5em;
+  }
+
+  .UsersHead {
+    display: none;
+  }
 }
